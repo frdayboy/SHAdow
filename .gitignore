@@ -1,4 +1,5 @@
 #Pycache Stuff
 __pycache__/
+*.pyc
 #macOS stuff
 .DS_Store
