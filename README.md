@@ -1,5 +1,7 @@
 # Project SHAdow
 
+****Logo Soon****
+
 ****The goal:****
 
   The goal of Project SHAdow is to help beginners like myself gain experience with jailbreaking and the exploitation of vulnerabilities. Jailbreaking can be frustrating to start, but I hope to mirror an actual, maintainable jailbreak that you can dive into, poke around, and give you a feel for this stuff.
