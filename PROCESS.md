@@ -26,3 +26,9 @@ I'm taking a step back and looking at the whole picture. Maybe I can just use ax
 
 Part2:
 IT BOOTS!! I sent an unpatched LLB, and I had my doubts for whatever reason, but it does boot!
+
+
+5/23/20
+
+I've just realised it might be a bit cumbersome in the final jailbreak to need to send an LLB based on the matching iOS version and device. Dynamic patching or sending the alreaded loaded firmware in NOR
+to the host for patching there, and sending back.
