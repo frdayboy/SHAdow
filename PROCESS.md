@@ -32,3 +32,14 @@ IT BOOTS!! I sent an unpatched LLB, and I had my doubts for whatever reason, but
 
 I've just realised it might be a bit cumbersome in the final jailbreak to need to send an LLB based on the matching iOS version and device. Dynamic patching or sending the alreaded loaded firmware in NOR
 to the host for patching there, and sending back.
+
+5/26/20
+
+It would be so cool to have patches done on the device. I'm not sure how
+I'd do it though. My shellcode would have to somehow invoke the boot sequence,
+then do patches on the next stage. Keeping the patches at a good size and
+preserving them across stages is something I could figure out, but what the
+hard part is is actually starting the boot sequence. Instead of trying to rewrite
+the branch target in ROM to patches, I can just do the sequence myself?
+I'd find symbols for NOR, get the next stage, load it in memory, then do
+patches, then jump. That sounds reasonable.
