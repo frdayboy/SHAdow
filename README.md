@@ -16,3 +16,13 @@
 ****My device:****
 
   The end goal is to make a complete jailbreak for all A4 devices, but my only A4 device is an iPod 4g, so that's what I'm starting with. First tests were done on iOS 6.1.6
+
+****Resources:****
+
+  For patches:
+    https://www.theiphonewiki.com/wiki/Vm_map_protect_Patch
+    https://www.theiphonewiki.com/wiki/AMFI_Binary_Trust_Cache_Patch
+    https://www.theiphonewiki.com/wiki/Sandbox_Patch
+    https://www.theiphonewiki.com/wiki/PE_i_can_has_debugger_Patch
+    https://www.theiphonewiki.com/wiki/Vm_map_enter_Patch
+    https://www.theiphonewiki.com/wiki/Signature_Check_Patch
