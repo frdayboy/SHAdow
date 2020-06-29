@@ -43,3 +43,7 @@ hard part is is actually starting the boot sequence. Instead of trying to rewrit
 the branch target in ROM to patches, I can just do the sequence myself?
 I'd find symbols for NOR, get the next stage, load it in memory, then do
 patches, then jump. That sounds reasonable.
+
+5/29/20
+
+Might just invoke boot process from shellcode (boot from NOR). Then, before jump, accept image over USB from shellcode and execute. This would be an easier way to patch the next stage, then return to the shellcode and boot the next stage. Boom.
