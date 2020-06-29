@@ -46,4 +46,9 @@ patches, then jump. That sounds reasonable.
 
 5/29/20
 
-Might just invoke boot process from shellcode (boot from NOR). Then, before jump, accept image over USB from shellcode and execute. This would be an easier way to patch the next stage, then return to the shellcode and boot the next stage. Boom.
+Might just invoke boot process from shellcode (boot from NOR). Then, before jump, accept image over USB from shellcode and execute. This would be an easier way to patch the next stage, then return to the shellcode and boot the next stage. Boom. Only thing that would be problematic is what LLB jumps to to patch iBoot. I was thinking jumping to shellcode uploaded from LLB DFU, but then I have to do more RE to continue boot. I think storing iBoot's patch shellcode in load address would be easy for LLB to jump to, but I'm not sure if that gets memset over when boot happens. If it doesn't,then my plan of action is as follows:
+-RE ROM to find how boot sequence starts.
+-Start boot sequence from shellcode, but patch LLB right before jump
+-LLB will just be patched to jump to patch shellcode before iBoot is executed.
+-iBoot will just patch kernel
+Note: If the patches are small enough, I can just include them in the code section of the next stage. So patches for iBoot are with LLB.
