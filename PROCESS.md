@@ -56,3 +56,4 @@ Note: If the patches are small enough, I can just include them in the code secti
 5/30/30
 
 RE might be harder than I thought. Maybe finding image3_load_signature_check type-function might help me in finding the beginning of the jump sequence.
+Might just be better to stick to my original method of accepting an image over usb. This seems to be the method used by Greenpois0n as found in SHAttered dreams.
