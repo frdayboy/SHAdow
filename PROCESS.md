@@ -52,3 +52,7 @@ Might just invoke boot process from shellcode (boot from NOR). Then, before jump
 -LLB will just be patched to jump to patch shellcode before iBoot is executed.
 -iBoot will just patch kernel
 Note: If the patches are small enough, I can just include them in the code section of the next stage. So patches for iBoot are with LLB.
+
+5/30/30
+
+RE might be harder than I thought. Maybe finding image3_load_signature_check type-function might help me in finding the beginning of the jump sequence.
