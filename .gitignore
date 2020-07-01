@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 #macOS stuff
 .DS_Store
+#Notes for me
+non/
