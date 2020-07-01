@@ -55,6 +55,7 @@ def get_data(device, amount):
     data = str()
     while amount > 0:
         part = min(amount, MAX_PACKET_SIZE)
+        time.sleep(1)
         ret = device.ctrl_transfer(0xA1, 2, 0, 0, part, 5000)
         assert len(ret) == part
         data += ret.tostring()
