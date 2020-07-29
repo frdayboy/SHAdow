@@ -53,9 +53,10 @@ def send_data(device, data):
 def get_data(device, amount):
     #print 'Getting 0x%x of data from device.' % amount
     data = str()
+    time.sleep(3)
     while amount > 0:
         part = min(amount, MAX_PACKET_SIZE)
-        ret = device.ctrl_transfer(0xA1, 2, 0, 0, part, 5000)
+        ret = device.ctrl_transfer(0xA1, 2, 0, 0, part, 10000)
         assert len(ret) == part
         data += ret.tostring()
         amount -= part
