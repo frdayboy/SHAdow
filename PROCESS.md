@@ -61,3 +61,42 @@ Might just be better to stick to my original method of accepting an image over u
 6/3/20
 
 Now it's time to RE LLB, I have to look for a function that loads iBoot then patch the end of it to a custom function that patches iBoot.
+
+6/5/20
+
+Had some USB issues during the exploit. Not sure why, but adding time delays between
+ctrl_transfers seems to fix it.
+
+iPod is not booting when sending patched and unpatched LLB on 6.1.6.
+
+I was unable to get my iPod to 6.1.6 which is sad because it's currently on 4.1.
+I'm going to redo my reverse engineering for 4.1 LLB, patch it, and hope for the
+boot. I'll keep my research on 6.1.6 and support that however because it's
+better to have the latest signed firmware and support all A4 devices.
+
+6/10/20
+
+I just realized that the reason the 6.1.6 patched LLB is not booting is probably because it's not encrypted. Also turns out that 6.1.6 is the only LLB that will boot, so I'm not gonna redo RE for 4.1.
+
+6/15/20
+
+I'm making a tool that allows to overwrite the DATA tag in an IMG3 firmware file.
+This will allow the shellcode code to properly load the unsigned code and jump to it.
+
+6/21/20
+
+I'm preparing for my initial barebones release, which is enabling verbose boot. I have reverse engineered iBoot (4.1, easier to find symbols). My plan is to patch the standard boot args string with "-v" and BOOM! verbose mode.
+
+6/25/20
+
+I'm doing some digging in the iBoot32Patcher source to see how they patched the kernel's command line. The iBoot patchset that will be added to the patched LLB will just do what iBoot32Patcher -b does.
+
+Looks like the desired boot args are just strcpy-ed over the hardcoded boot args string. I can achieve the same effect by either putting my RE skills to the test on LLB and finding strcpy, or implementing it myself in shellcode that gets added to the patched LLB.
+
+6/29/20
+
+I've just realized it may be easier to patch iBSS and iBoot to achieve verbose (and a jb) rather than patching LLB and patching iBoot from LLB. All my work on LLB may be to waste, but this is a learning process.
+
+I might be able to also achieve verbose boot with just a simple environment variable from LLB.
+
+I GOT VERBOSE BOOT! It was super cool! Now I just have to work on making the process super easy for the user
